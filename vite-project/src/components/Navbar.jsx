@@ -10,19 +10,16 @@ const Navbar = ({ movies, searchedMovie, setSearchedMovie }) => {
 
   const handleInputChange = (e) => {
     const value = e.target.value;
-    // Immediately show suggestions when typing starts
     setShowSuggestions(true);
     debouncedChangeHandler(value);
   };
   
-  // Update the debounced handler to ONLY handle query updates
   const debouncedChangeHandler = useCallback(
     debounce((value) => {
       setQuery(value);
-      // Force show suggestions after debounce
       setShowSuggestions(!!value.trim());
     }, 0),
-    [] // Keep empty deps array
+    []
   );
 
   const handleClearInput = () => {
@@ -30,7 +27,7 @@ const Navbar = ({ movies, searchedMovie, setSearchedMovie }) => {
     setShowSuggestions(false);
   };
 
-  // Filter movies based on the query
+
   const filteredMovies = useMemo(() => {
     if (!query) return [];
     const results = movies.filter((movie) =>
@@ -40,7 +37,7 @@ const Navbar = ({ movies, searchedMovie, setSearchedMovie }) => {
     return results;
   }, [movies, query]);
 
-  // Close suggestions when clicking outside
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!e.target.closest('.search-container')) {
@@ -53,7 +50,7 @@ const Navbar = ({ movies, searchedMovie, setSearchedMovie }) => {
     };
   }, []);
 
-  // Memoize suggestion click handlers
+
   const handleSuggestionClick = useCallback((movie) => {
     setSelectedMovie(movie);
     setQuery(movie.title);

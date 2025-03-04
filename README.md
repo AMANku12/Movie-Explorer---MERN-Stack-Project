@@ -1,5 +1,6 @@
 # Movie-Explorer---MERN-Stack-Project
 
+<<<<<<< HEAD
 # Movie Explorer - MERN Stack Project
 
 ## Overview
@@ -63,3 +64,11 @@ Contributions are welcome! Feel free to submit a pull request.
 ## License
 
 This project is licensed under the MIT License.
+=======
+![Screenshot](images/Screenshot%20(56).png)
+![Screenshot](images/Screenshot%20(57).png)
+![Screenshot](images/Screenshot%20(59).png)
+![Screenshot](images/Screenshot%20(60).png)
+
+
+>>>>>>> 8e2747dd7453163ef3605ad6f2000e33e5a99b3c
