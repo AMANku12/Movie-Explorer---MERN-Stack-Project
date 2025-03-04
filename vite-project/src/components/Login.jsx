@@ -10,29 +10,31 @@ const Login = ({ setUser , setLoggedIn}) => {
     password: ''
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:3001/api/login', {
-        username: formData.username,
-        password: formData.password,
-      });
-      
-      if (response.data.status === "Success") {
-        localStorage.setItem("loggedIn", "true");
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+    // Handle registration logic
+    axios.post("http://localhost:3001/api/login", formData, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => {
+      console.log("response from login", response.data);
+
+      if(response.data.message=="Success"){
+        localStorage.setItem("token",response.data.token);
+        localStorage.setItem("user",response.data.user);
+        console.log(response.data.user);
         setUser(response.data.user);
         setLoggedIn(true);
         navigate("/");
-      } else {
-        setError(response.data.message);
-        setLoggedIn(false);
-        navigate("/login");
+      }else if(response.data.message=="wrong password"){
+        alert("Wrong password");
+      }else if(response.data.message=="No username found"){
+        alert("User not found");
       }
-    } catch (error) {
-      console.error('Login error:', error);
-      setError('An error occurred during login');
-    }
+    }).catch((err)=>{
+      console.log("error in logging in  user", err);
+    })
   };
 
   return (

@@ -6,14 +6,39 @@ import { useCallback } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const SearchedMovie = ({ searchedMovie}) => {
+const SearchedMovie = ({ searchedMovie, loggedIn, user, setUser}) => {
+
+  const [inwatchlist,setinwatchlist] = useState(false);
 
   if (searchedMovie) {
     console.log("from searchedmovie comp:- ",searchedMovie);
   } else {
     console.log("nothing in searched movie");
   }
+  // console.log(loggedIn);
 
+  useEffect(()=>{
+    if(user && user.watchlist && searchedMovie){
+      const exists = user.watchlist.some(movie => movie.imdbID === searchedMovie.imdbID );
+      setinwatchlist(exists);
+    }
+  },[user,searchedMovie]);
+  
+
+  const handleAddtowatchlist = (searchedMovie)=>{
+    axios.post("http://localhost:3001/api/addtowatchlist",{user,newmovie: searchedMovie})
+    .then((res)=>{
+      console.log(res.data);
+      if(res.data.message==="Added to watchlist"){
+        alert("Added to watchlist");
+        setinwatchlist(true);
+        setUser(res.data.user);
+      }
+    }).catch((error)=>{
+      alert("Server error!!");
+      console.log(error);
+    })
+  }
 
   return (
     <div className="movie-details-container">
@@ -50,6 +75,16 @@ const SearchedMovie = ({ searchedMovie}) => {
             <div className="info-item">
               <div className="info-label">Released</div>
               <div className="info-value">{searchedMovie.Released}</div>
+            </div>
+
+            <div className="addtowatchlist">
+              {
+                loggedIn ? (
+                inwatchlist ?(
+                  <button>Remove from watchlist</button>
+                ):(<button onClick={()=>handleAddtowatchlist(searchedMovie)}>Add to watchlist</button>))
+                : (<button onClick={()=> alert("Login First!!")}>Add to watchlist</button>)
+              }
             </div>
           </div>
         </div>

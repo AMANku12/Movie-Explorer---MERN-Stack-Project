@@ -13,10 +13,11 @@ import Comedy from './components/categories/Comedy';
 import Mystery from './components/categories/Mystery';
 import Login from './components/Login';
 import Register from './components/Register';
+import MyWatchlist from './components/categories/MyWatchlist';
 import axios from 'axios';
 import './App.css';
 
-function CenterContent({ratedMovies, searchedMovie, setSearchedMovie }){
+function CenterContent({ratedMovies, searchedMovie, setSearchedMovie, loggedIn, user, setUser }){
   const location = useLocation();
 
   return (
@@ -25,7 +26,7 @@ function CenterContent({ratedMovies, searchedMovie, setSearchedMovie }){
         <TopRated movies={ratedMovies} searchedMovie={searchedMovie} setSearchedMovie={setSearchedMovie} />
       ) 
       : location.pathname === "/searchedMovie" ? (
-        <SearchedMovie searchedMovie={searchedMovie} ratedMovies={ratedMovies}  />
+        <SearchedMovie searchedMovie={searchedMovie} loggedIn={loggedIn} user={user} setUser={setUser}/>
       ) 
       : location.pathname === "/action" ? (
         <Action ratedMovies={ratedMovies} searchedMovie={searchedMovie} setSearchedMovie={setSearchedMovie} />
@@ -48,7 +49,10 @@ function CenterContent({ratedMovies, searchedMovie, setSearchedMovie }){
       : location.pathname === "/trending" ? (
         <Trending ratedMovies={ratedMovies} searchedMovie={searchedMovie} setSearchedMovie={setSearchedMovie} />
       ) 
-      : (
+      : location.pathname === "/mywatchlist" ? (
+        <MyWatchlist user={user} searchedmovie={searchedMovie} setSearchedMovie={setSearchedMovie}/>
+      ) 
+      :(
         <Trending ratedMovies={ratedMovies} searchedMovie={searchedMovie} setSearchedMovie={setSearchedMovie} />
       )}
     </div>
@@ -95,13 +99,15 @@ function App() {
                   <h1>🎬 I Love Movies</h1>
                   <div className="profile">
                     <img src={reactLogo} alt="Profile" />
-                    <span>{user ? user.username : 'Guest'}</span>
-                    {user ? (
+                    <span>{loggedIn ? user.name : 'Guest'}</span>
+                    {loggedIn ? (
                       <button 
                         className="login-button" 
                         onClick={() => {
                           localStorage.removeItem('user');
+                          localStorage.removeItem("token");
                           setUser(null);
+                          setLoggedIn(false);
                         }}
                       >
                         Logout
@@ -119,11 +125,14 @@ function App() {
                     searchedMovie={searchedMovie} 
                     setSearchedMovie={setSearchedMovie} 
                     user={user}
+                    loggedIn={loggedIn}
+                    setUser={setUser}
                   />
                   <div className="right-panel">
                     <div className="right-panel-inner">
                       <h2>🎭 Categories</h2>
                       <ul className="categories-list">
+                        <li><Link to="/mywatchlist">My Watch List</Link></li>
                         <li><Link to="/comedy">Comedy</Link></li>
                         <li><Link to="/horror">Horror</Link></li>
                         <li><Link to="/adventure">Adventure</Link></li>

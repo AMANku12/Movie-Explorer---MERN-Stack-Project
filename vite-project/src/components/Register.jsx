@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+    name: '',
     username: '',
     email: '',
     password: ''
@@ -21,17 +22,9 @@ import { useNavigate } from 'react-router-dom';
         'Content-Type': 'application/json'
       }
     }).then((response) => {
-      if(response.data === "Success"){
-        setUser(formData);
-        setLoggedIn(true);
-        navigate("/");
-      }
-      else if(response.data === "Username already exists"){
-          alert("Username already exists");
-          navigate("/login");
-      }else{
-        alert("Registration failed");
-      }
+      console.log("response from register", response.data);
+    }).catch((err)=>{
+      console.log("error in registering user", err);
     })
   };
 
@@ -44,6 +37,16 @@ import { useNavigate } from 'react-router-dom';
         </div>
         
         <form className="auth-form" onSubmit={handleSubmit}>
+
+        <div className="form-group">
+            <input
+              type="text"
+              placeholder="Name"
+              value={formData.name}
+              onChange={(e) => setFormData({...formData, name: e.target.value})}
+            />
+          </div>
+
           <div className="form-group">
             <input
               type="text"

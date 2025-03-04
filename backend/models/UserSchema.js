@@ -5,6 +5,9 @@ const UserSchema = new mongoose.Schema({
     email:{
         type:String,
     },
+    name:{
+        type:String,
+    },
     username:{
         type:String,
         required:true,
@@ -15,6 +18,14 @@ const UserSchema = new mongoose.Schema({
         required:true,
 
     },
+    token:{
+        type:String,
+        default:null,
+    },
+    watchlist:{
+        type:Array,
+        default: []
+    }
 
 },{timestamps:true})
 
