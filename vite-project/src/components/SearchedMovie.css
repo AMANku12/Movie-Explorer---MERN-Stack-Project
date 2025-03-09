@@ -106,6 +106,37 @@
   transform: translateY(0);
 }
 
+/* Add to Watchlist Button */
+.add-to-watchlist {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-to-watchlist:hover {
+  background-color: darkblue; /* Darker blue for hover effect */
+}
+
+/* Remove from Watchlist Button */
+.remove-from-watchlist {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.remove-from-watchlist:hover {
+  background-color: darkred; /* Darker red for hover effect */
+}
+
+
 .back-button {
   display: inline-flex;
   align-items: center;

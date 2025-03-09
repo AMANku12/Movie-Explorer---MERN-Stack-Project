@@ -40,7 +40,7 @@ app.get("/api/mywatchlist",verifyToken, async(req,res)=>{
     if (!user) return res.status(404).json({ error: "User not found" });
 
     res.json(user.watchlist);
-    console.log("User watchlist:", user.watchlist);
+    //console.log("User watchlist:", user.watchlist);
 
   } catch (error) {
     console.error("Error fetching watchlist:", error);
@@ -65,6 +65,27 @@ app.post("/api/addtowatchlist", async(req,res)=>{
 
   } catch (error) {
     res.status(500).json({error: "Server error"});
+  }
+})
+
+app.post("/api/removefromwatchlist", async(req,res)=>{
+  const {user, movie} = req.body;
+  const userId = user._id;
+  console.log("removefromwatchlist:",req.body);
+  try{
+    const existingUser = await User.findById(userId);
+    if(!existingUser) return res.status(404).json({error: "user not found"});
+
+    const updateduser = await User.findByIdAndUpdate(
+      userId,
+      { $pull: {watchlist: movie}},
+      {new: true}
+    );
+    res.json({message:"Success", user: updateduser});
+    console.log("movie removed from watchlist", updateduser);
+  }catch(error){
+    console.log("error in removing from watchlist", error);
+    res.status(500).json({"server error": error});
   }
 })
 

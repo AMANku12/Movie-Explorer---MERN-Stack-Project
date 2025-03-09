@@ -40,6 +40,21 @@ const SearchedMovie = ({ searchedMovie, loggedIn, user, setUser}) => {
     })
   }
 
+  const handleRemovefromwatchlist = (searchedMovie)=>{
+    axios.post("http://localhost:3001/api/removefromwatchlist",{user,movie: searchedMovie})
+    .then((res)=>{
+      console.log(res.data);
+      if(res.data.message==="Success"){
+        alert("Removed from watchlist");
+        setinwatchlist(false);
+        setUser(res.data.user);
+      }
+    }).catch((error)=>{
+      alert("Server error!!");
+      console.log(error);
+    })
+  }
+
   return (
     <div className="movie-details-container">
       <Link to="/" className="back-button">
@@ -80,12 +95,29 @@ const SearchedMovie = ({ searchedMovie, loggedIn, user, setUser}) => {
             <div className="addtowatchlist">
               {
                 loggedIn ? (
-                inwatchlist ?(
-                  <button>Remove from watchlist</button>
-                ):(<button onClick={()=>handleAddtowatchlist(searchedMovie)}>Add to watchlist</button>))
-                : (<button onClick={()=> alert("Login First!!")}>Add to watchlist</button>)
+                  inwatchlist ? (
+                    <button 
+                      className="remove-from-watchlist" 
+                      onClick={() => handleRemovefromwatchlist(searchedMovie)}>
+                      Remove from Watchlist
+                    </button>
+                  ) : (
+                    <button 
+                      className="add-to-watchlist" 
+                      onClick={() => handleAddtowatchlist(searchedMovie)}>
+                      Add to Watchlist
+                    </button>
+                  )
+                ) : (
+                  <button 
+                    className="add-to-watchlist" 
+                    onClick={() => alert("Login First!!")}>
+                    Add to Watchlist
+                  </button>
+                )
               }
             </div>
+
           </div>
         </div>
       </div>
