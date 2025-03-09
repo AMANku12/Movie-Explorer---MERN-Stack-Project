@@ -13,12 +13,16 @@ A full-stack web application for exploring movies and managing your watch list. 
 ## Tech Stack
 **Frontend:** React 
 **Backend:** Node.js, Express, MongoDB  
-**APIs:** Custom API
+**APIs:** Custom API (Present in Beckend folder)
 
 ## Screenshots
-| Home Page | Movie Details | Favorites |
+| Home Page | Searching | Watchlist |
 |-----------|---------------|-----------|
-| ![Home](https://github.com/AMANku12/Movie-Explorer---MERN-Stack-Project/blob/main/Screenshot%20(56).png?raw=true) | ![Details](https://github.com/AMANku12/Movie-Explorer---MERN-Stack-Project/blob/main/Screenshot%20(56).png?raw=true) | ![Favorites](https://github.com/AMANku12/Movie-Explorer---MERN-Stack-Project/blob/main/Screenshot%20(56).png?raw=true) |
+| ![Home](https://github.com/AMANku12/Movie-Explorer---MERN-Stack-Project/blob/main/Homepage.png?raw=true) | ![Searching](https://github.com/AMANku12/Movie-Explorer---MERN-Stack-Project/blob/main/SearchFeature.png?raw=true) | ![Watchlist](https://github.com/AMANku12/Movie-Explorer---MERN-Stack-Project/blob/main/Watchlist.png?raw=true) |
+
+| Add/Remove from watchlist | Login | Register |
+|-----------|---------------|-----------|
+| ![Add/Remove](https://github.com/AMANku12/Movie-Explorer---MERN-Stack-Project/blob/main/AddorRemove.png?raw=true) | ![Login](https://github.com/AMANku12/Movie-Explorer---MERN-Stack-Project/blob/main/Login.png?raw=true) | ![Watchlist](https://github.com/AMANku12/Movie-Explorer---MERN-Stack-Project/blob/main/Register.png?raw=true) |
 
 ## Installation
 ```bash
